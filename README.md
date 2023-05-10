@@ -1,3 +1,10 @@
+# this implementaion forked from joel's one
+
+## docs
+[Code Explain: plural-qf/DeCartography-Pluralqf.py](https://scrapbox.io/tkgshn/Code_Explain:_plural-qf%2FDeCartography-Pluralqf.py)
+
+
+---
 # plural-qf
 Plural Quadratic Funding Mechanisms, written in python.
 
