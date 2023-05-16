@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Plural QF Simulator</title>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <!-- <script src="https://raw.githubusercontent.com/christophe-g/d3-venn/master/d3-venn.js"></script> -->
+  <script src=""d3-venn/d3-venn.js""></script>
+  <script src="bondingCurves.js"></script>
+</head>
+<body>
+
+<h1>Plural QF Simulator</h1>
+
+<p id="demo"></p>
+<body>
+<div>
+7 people<br>
+<br>
+cluster 1 = [0]<br>
+cluster 2 = [1,2]<br>
+cluster 3 = [2,3,4,5]<br>
+cluster 4 = [5,6]<br>
+<br>
+[[0],[1,2],[2,3,4,5],[5,6]]
+</div>
+<br>
+<a href="https://gyazo.com/eb00b33e3b5260e543390316c4666341"><img src="https://i.gyazo.com/eb00b33e3b5260e543390316c4666341.jpg" alt="Image from Gyazo" width="200"/></a>
+<div id="sliders">
+  <div>
+    <label for="agent0">Agent 0: </label>
+    <input type="range" min="0" max="100" value="0" class="slider" id="agent0">
+    <span id="value0"></span>
+  </div>
+<!-- <div id="chart"></div> -->
+
+
+
+  <div>
+    <label for="agent1">Agent 1: </label>
+    <input type="range" min="0" max="100" value="0" class="slider" id="agent1">
+    <span id="value1"></span>
+  </div>
+  <div>
+    <label for="agent1">Agent 2: </label>
+    <input type="range" min="0" max="100" value="0" class="slider" id="agent2">
+    <span id="value2"></span>
+  </div>
+  <div>
+    <label for="agent1">Agent 3: </label>
+    <input type="range" min="0" max="100" value="0" class="slider" id="agent3">
+    <span id="value3"></span>
+  </div>
+  <div>
+    <label for="agent1">Agent 4: </label>
+    <input type="range" min="0" max="100" value="0" class="slider" id="agent4">
+    <span id="value4"></span>
+  </div>
+  <div>
+    <label for="agent1">Agent 5: </label>
+    <input type="range" min="0" max="100" value="0" class="slider" id="agent5">
+    <span id="value5"></span>
+  </div>
+  <div>
+    <label for="agent1">Agent 6: </label>
+    <input type="range" min="0" max="100" value="0" class="slider" id="agent6">
+    <span id="value6"></span>
+  </div>
+</div>
+
+<button onclick="calculate()">Calculate</button>
+
+<div id="result"></div>
+
+<script src="pluralqf.js"></script>
+
+</body>
+</html>
