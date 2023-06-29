@@ -21,15 +21,15 @@ class CrowdWorker:
     def __init__(self, name, humanity_score=0, staking_amount=0):
         self.name = name
         self.humanity_score = humanity_score
-        self.staking_amount = staking_amount
-        self.weight = humanity_score + np.sqrt(staking_amount) #quadratic staking
-        self.choices = []
+        self.staking_amount = staking_amount #optional
+        self.weight = humanity_score + np.sqrt(staking_amount) #quadratic staking? the formula require to adjusting after experiment
+        self.choices = [] #empty at first
 
 #assume workers stats 
 workers = [
-    CrowdWorker('CrowdWorkerA', 10, 0), 
-    CrowdWorker('CrowdWorkerB', 45, 0.1), 
-    CrowdWorker('CrowdWorkerC', 86, 0.05)
+    CrowdWorker('CrowdWorkerA', 10, 0), #weight 10
+    CrowdWorker('CrowdWorkerB', 45, 0.1), #weight 45.3162
+    CrowdWorker('CrowdWorkerC', 86, 0.05) #weigt 86.223
     ]
 
 # %% [markdown]
@@ -50,7 +50,7 @@ import random
 
 #generate tasks from address list
 def worker_selection(worker, addresses):
-    random_addresses = random.sample(addresses, 9)
+    random_addresses = random.sample(addresses, 9) #it's so simple implemenmtation, for generate task. must be improved as golden standerd? in production
     # instructions for the worker on command line
     print(f"{worker.name}, please choose 3 addresses from the following list by typing the corresponding numbers (separated by space):")
     for i, address in enumerate(random_addresses):
@@ -61,7 +61,7 @@ def worker_selection(worker, addresses):
         choices = input().split()
         
         # Make sure the worker's choices are valid.
-        if all(0 <= int(choice) < 9 for choice in choices) and len(choices) == 3:
+        if all(0 <= int(choice) < 9 for choice in choices) and len(choices) == 3: #crowd worker is going to select 3 answers from 9 addresses
             break
         else:
             print("Invalid input. Please choose 3 addresses by typing the corresponding numbers (0-8) separated by space.")
@@ -71,7 +71,7 @@ def worker_selection(worker, addresses):
     worker.choices.extend(chosen_addresses)
     return chosen_addresses
 
-n_sessions = 3 #number of sessions per worker
+n_sessions = 3 #number of task per session(each crowdworker will do 3 tasks)
 votes_matrix = np.zeros((len(addresses), len(addresses)))
 worker_voting_power = {}
 
@@ -170,7 +170,7 @@ for i, cluster in enumerate(clusters):
 for cluster, addresses in clustered_addresses.items():
     print(f"Cluster {cluster}: {addresses}")
 
-1# define input_data which is Cluster {cluster}: {addresses}
+# define input_data which is Cluster {cluster}: {addresses}
 input_data = clustered_addresses
 
 # plt.figure(figsize=(10,10))
@@ -205,37 +205,37 @@ output_data = convert_data(input_data)
 print(output_data)
 
 
-# %%
-from IPython.display import display, Javascript, HTML
+# # %%
+# from IPython.display import display, Javascript, HTML
 
 
-html = """
-<head>
-    <meta charset="utf-8">
-    <title>Venn Diagram with venn.js in Jupyter Notebook</title>
-</head>
-<body>
-    <div id="venn"></div>
-</body>
-</html>
-"""
+# html = """
+# <head>
+#     <meta charset="utf-8">
+#     <title>Venn Diagram with venn.js in Jupyter Notebook</title>
+# </head>
+# <body>
+#     <div id="venn"></div>
+# </body>
+# </html>
+# """
 
-javascript = f"""
-require.config({{
-    paths: {{
-        d3: "https://d3js.org/d3.v4.min",
-        venn: "https://benfred.github.io/venn.js/venn"
-    }}
-}});
+# javascript = f"""
+# require.config({{
+#     paths: {{
+#         d3: "https://d3js.org/d3.v4.min",
+#         venn: "https://benfred.github.io/venn.js/venn"
+#     }}
+# }});
 
-require(['d3', 'venn'], function(d3, venn) {{
-    var data = {output_data};
-    var chart = venn.VennDiagram();
-    d3.select("#venn").datum(data).call(chart);
-}});
-"""
+# require(['d3', 'venn'], function(d3, venn) {{
+#     var data = {output_data};
+#     var chart = venn.VennDiagram();
+#     d3.select("#venn").datum(data).call(chart);
+# }});
+# """
 
-display(HTML(html))
-display(Javascript(javascript))
+# display(HTML(html))
+# display(Javascript(javascript))
 
 
